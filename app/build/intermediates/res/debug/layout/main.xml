@@ -1,12 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <TabHost
+        android:id="@+id/tabHost"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world"/>
+        android:layout_weight="1">
 
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+            </TabWidget>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <RelativeLayout
+                    android:id="@+id/songs"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+
+                    <ListView
+                        android:id="@+id/songsListView"
+                        android:layout_marginBottom="64dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+
+                    <Button
+                        android:id="@+id/updateSongs"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:text="@string/updateSongs" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/lists"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <ListView
+                        android:id="@+id/listsListView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <Button
+                        android:id="@+id/managerLists"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:text="@string/managerLists" />
+
+                </RelativeLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
 </LinearLayout><!-- From: file:/home/david/Me/Works/MP3player/app/src/main/res/layout/main.xml -->

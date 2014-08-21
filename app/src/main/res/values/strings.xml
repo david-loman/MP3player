@@ -4,5 +4,7 @@
     <string name="app_name">MP3player</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="updateSongs">更新歌曲信息</string>
+    <string name="managerLists">管理</string>
 
 </resources>

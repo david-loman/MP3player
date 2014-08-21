@@ -65,7 +65,11 @@
                 </string>
                 <string name="app_name" >MP3player
                 </string>
+                <string name="managerLists" >管理
+                </string>
                 <string name="hello_world" >Hello world!
+                </string>
+                <string name="updateSongs" >更新歌曲信息
                 </string>
             </file>
             <file
@@ -76,6 +80,26 @@
             <file
                 name="main"
                 path="/home/david/Me/Works/MP3player/app/src/main/res/layout/main.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="splash"
+                path="/home/david/Me/Works/MP3player/app/src/main/res/drawable-xxhdpi/splash.png"
+                qualifiers="xxhdpi-v4"
+                type="drawable" />
+            <file
+                name="splash"
+                path="/home/david/Me/Works/MP3player/app/src/main/res/drawable-hdpi/splash.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="splash"
+                path="/home/david/Me/Works/MP3player/app/src/main/res/drawable-mdpi/splash.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="songlist_item"
+                path="/home/david/Me/Works/MP3player/app/src/main/res/layout/songlist_item.xml"
                 qualifiers=""
                 type="layout" />
         </source>

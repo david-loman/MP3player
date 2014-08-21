@@ -3,9 +3,12 @@ package com.loman.david.mp3player;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.os.Handler;
+
+import com.loman.david.data.SqlExcu;
 
 
 public class SplashActivity extends Activity {
@@ -17,6 +20,19 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        SqlExcu sqlExcu =new SqlExcu(this);
+        sqlExcu.initSQL(sqlExcu.SONGSTABLE,getContentResolver());
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -26,7 +42,6 @@ public class SplashActivity extends Activity {
             }
         },SPLASH_DISPLAY_LENGHT);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
