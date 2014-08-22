@@ -1,10 +1,18 @@
 package com.loman.david.mp3player;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.gesture.GestureOverlayView;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -31,7 +39,8 @@ public class MainActivity extends Activity {
     private ListView songList;
     private ListView listList;
     private SqlExcu sqlExcu;
-    private List<Map<String,String>> list;
+    private List<Map<String,String>> sList;
+    private List<Map<String,String>> lList;
     private Map<String,String> map;
     private ContentResolver contentResolver;
 
@@ -40,7 +49,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        list=new ArrayList<Map<String, String>>();
+        sList=new ArrayList<Map<String, String>>();
+        lList=new ArrayList<Map<String, String>>();
         map=new HashMap<String, String>();
         contentResolver=getContentResolver();
 
@@ -63,6 +73,13 @@ public class MainActivity extends Activity {
     protected void onStart() {
         super.onStart();
         setSongListView();
+        setListListView();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
     }
 
     @Override
@@ -75,6 +92,46 @@ public class MainActivity extends Activity {
                 sqlExcu.updateSQL(sqlExcu.SONGSTABLE,contentResolver);
                 setSongListView();
                 Toast.makeText(MainActivity.this,"Update Song list !",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        manage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        //
+        songList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Toast.makeText(MainActivity.this,"positon:"+position+" id:"+id,Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        songList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Map<String,String> map=sList.get(position);
+                String name=map.get(sqlExcu.SONGNAME);
+                String time=map.get(sqlExcu.SONGTIME);
+                String path=map.get(sqlExcu.SONGPATH);
+                String msg="Song name:"+" "+name+"\nSong time:"+" "+time+"\nSong path:"+" "+path;
+                createDialog("Song informations",msg,true,false);
+                return true;
+            }
+        });
+
+        listList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent=new Intent(MainActivity.this,ListManagerActivity.class);
+                intent.putExtra("id",position);
+                startActivity(intent);
+
             }
         });
 
@@ -96,13 +153,31 @@ public class MainActivity extends Activity {
     }
 
     private void setSongListView(){
-        list.clear();
-        list=sqlExcu.QuerrySQL(sqlExcu.SONGSTABLE,null,null);
-        SimpleAdapter songAdapter =new SimpleAdapter(this,list,R.layout.songlist_item,new String[]{"name","time"},new int[]{R.id.title,R.id.time});
+        sList.clear();
+        sList=sqlExcu.QuerrySQL(sqlExcu.SONGSTABLE,null,null);
+        SimpleAdapter songAdapter =new SimpleAdapter(this,sList,R.layout.songlist_item,new String[]{sqlExcu.SONGNAME,sqlExcu.SONGTIME},new int[]{R.id.title,R.id.time});
         songList.setAdapter(songAdapter);
     }
 
     private void setListListView(){
-
+        lList.clear();
+        lList=sqlExcu.QuerrySQL(sqlExcu.LISTSTABLE,null,null);
+        SimpleAdapter listAdapter=new SimpleAdapter(this,lList,R.layout.songlist_item,new String[]{sqlExcu.LISTNAME,sqlExcu.LISTCOUNT},new int []{R.id.title,R.id.time});
+        listList.setAdapter(listAdapter);
     }
+
+    private void createDialog(String title ,String messege,boolean postive,boolean negetive){
+
+        AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle(title);
+        builder.setMessage(messege);
+        if (postive){
+            builder.setPositiveButton("Yes",null);
+        }
+        if (negetive){
+            builder.setNegativeButton("Cancel",null);
+        }
+        builder.create().show();
+    }
+
 }

@@ -26,6 +26,10 @@
         </activity>
 
         <activity android:name=".MainActivity" />
+        <activity android:name=".ListManagerActivity"/>
+        <activity android:name=".SongsEditActivity"
+            android:theme="@style/myDialog"
+            android:label="歌曲列表"/>
     </application>
 
 

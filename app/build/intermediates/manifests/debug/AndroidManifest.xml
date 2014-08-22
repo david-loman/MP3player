@@ -25,6 +25,11 @@
             </intent-filter>
         </activity>
         <activity android:name="com.loman.david.mp3player.MainActivity" />
+        <activity android:name="com.loman.david.mp3player.ListManagerActivity" />
+        <activity
+            android:name="com.loman.david.mp3player.SongsEditActivity"
+            android:label="歌曲列表"
+            android:theme="@style/myDialog" />
     </application>
 
 </manifest>

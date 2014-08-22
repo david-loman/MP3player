@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/listInfoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="225dp">
+
+        <TextView
+            android:id="@+id/listTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/list_info"/>
+
+        <RelativeLayout
+            android:id="@+id/listInfoRelativeLayout"
+            android:layout_below="@+id/listTextView"
+            android:layout_marginBottom="48dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/nameTextView"
+                android:layout_alignParentLeft="true"
+                android:layout_alignBaseline="@+id/nameEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="@string/list_name"/>
+
+            <EditText
+                android:id="@+id/nameEditText"
+                android:layout_toRightOf="@+id/nameTextView"
+                android:layout_toLeftOf="@+id/countTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/countTextView"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:id="@+id/classTextView"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/nameEditText"
+                android:layout_alignBaseline="@+id/classEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/list_class"
+                android:textSize="18sp"
+                />
+
+            <EditText
+                android:id="@+id/classEditText"
+                android:layout_toRightOf="@+id/classTextView"
+                android:layout_below="@+id/nameEditText"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tagTextView"
+                android:layout_below="@id/nameEditText"
+                android:layout_toRightOf="@id/classEditText"
+                android:layout_alignBaseline="@id/classEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/list_tag"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/tagEditText"
+                android:layout_below="@+id/nameEditText"
+                android:layout_toRightOf="@id/tagTextView"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/infoTextView"
+                android:layout_below="@id/classEditText"
+                android:layout_alignBaseline="@+id/infoEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/list_info_detail"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/infoEditText"
+                android:layout_below="@id/tagEditText"
+                android:layout_toRightOf="@+id/infoTextView"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+        <Button
+            android:id="@+id/listEditor"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="@string/edit_list"/>
+
+        <Button
+            android:id="@+id/listDelete"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="@string/delete_list"
+            />
+        </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/songInfoLayout"
+        android:layout_below="@+id/listInfoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/songsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/songlist"
+            />
+        <ListView
+            android:id="@+id/songInfoListView"
+            android:layout_below="@+id/songsTextView"
+            android:layout_marginBottom="48dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <Button
+            android:id="@+id/addSongs"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="@string/add_songs"/>
+
+        <Button
+            android:id="@+id/deleteSongs"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="@string/delete_songs"/>
+        </RelativeLayout>
+</RelativeLayout>

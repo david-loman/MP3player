@@ -17,17 +17,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.security.auth.login.LoginException;
+
 /**
  * Created by root on 14-8-21.
  */
 public class SqlExcu {
 
+    private int INT_LISTCOUNT=0;
     private Context context;
     private SQLHelper sqlHelper;
     private SQLiteDatabase db = null;
     private String sql = null;
     private Cursor cursor;
     private boolean addRecord=true;
+    private final String DEFAULTLISTNAME="local_Song";
+    private final int DEFAULTLISTID=0;
+    private final String DEFAULTLISTINFO="Songs form my telephone";
+    private final String DEFAULTLISTCLASS="local";
+    private final String DEFAULTLISTTAG="local";
 
     public final String SONGID = "sId";
     public final String SONGNAME = "sName";
@@ -75,19 +83,42 @@ public class SqlExcu {
         db = sqlHelper.getWritableDatabase();
         if (table.equals(SONGSTABLE)) {
 
-            String id = map.get("ID");
-            String time = map.get("TIME");
-            String name = map.get("NAME");
-            String path = map.get("PATH");
+            String id = map.get(SONGID);
+            String time = map.get(SONGTIME);
+            String name = map.get(SONGNAME);
+            String path = map.get(SONGPATH);
 
             sql = "insert into " + table + " values (?,?,?,?)";
             db.execSQL(sql,new String []{id,name,path,time});
         } else if (table.equals(LISTSTABLE)) {
+            //ne
+            String id=map.get(LISTID);
+            String name=map.get(LISTNAME);
+            String count=map.get(LISTCOUNT);
+            String lclass=map.get(LISTCLASS);
+            //if not exist
+            String info=map.get(LISTINFO);
+            String tag=map.get(LISTTAG);
+            if (info == null){
+                info=DEFAULTLISTINFO;
+            }
+            if (tag==null){
+                tag=DEFAULTLISTTAG;
+            }
 
+            sql="insert into "+table+" values (?,?,?,?,?,?)";
+            db.execSQL(sql,new String []{id,name,count,info,lclass,tag});
         } else if (table.equals(SONGLIST)) {
+            String id=map.get(LSID);
+            String sid=map.get(SONGID);
+            String sname=map.get(SONGNAME);
+            String lid=map.get(LISTID);
+            String lname=map.get(LISTNAME);
 
+            sql="insert into "+table+" values(?,?,?,?,?)";
+            db.execSQL(sql,new String []{id,sid,sname,lid,lname});
         } else {
-            Toast.makeText(context, "Table no exist", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Insert Table no exist", Toast.LENGTH_SHORT).show();
         }
         db.close();
     }
@@ -96,31 +127,61 @@ public class SqlExcu {
     public void initSQL(String table, ContentResolver contentResolver) {
         setAddRecord(table);
         Map<String, String> map = new HashMap<String, String>();
+
+        String selections[] = new String[]{
+                MediaStore.Audio.AudioColumns.TITLE,
+                MediaStore.Audio.AudioColumns.DATA,
+                MediaStore.Audio.AudioColumns.DURATION};
+        Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+
+        cursor = contentResolver.query(uri, selections, null, null, null);
+
+        int index_name = cursor.getColumnIndex(MediaStore.Audio.AudioColumns.TITLE);
+        int index_path = cursor.getColumnIndex(MediaStore.Audio.AudioColumns.DATA);
+        int index_time = cursor.getColumnIndex(MediaStore.Audio.AudioColumns.DURATION);
+
         if (table.equals(SONGSTABLE) && addRecord) {
-
-            String selections[] = new String[]{
-                    MediaStore.Audio.AudioColumns.TITLE,
-                    MediaStore.Audio.AudioColumns.DATA,
-                    MediaStore.Audio.AudioColumns.DURATION};
-            Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-
-            cursor = contentResolver.query(uri, selections, null, null, null);
-
-            int index_name = cursor.getColumnIndex(MediaStore.Audio.AudioColumns.TITLE);
-            int index_path = cursor.getColumnIndex(MediaStore.Audio.AudioColumns.DATA);
-            int index_time = cursor.getColumnIndex(MediaStore.Audio.AudioColumns.DURATION);
 
             int count = 0;
             while (cursor.moveToNext()) {
-                map.put("ID", String.valueOf(count));
-                map.put("TIME", changeToTime(cursor.getInt(index_time)));
-                map.put("PATH", cursor.getString(index_path));
-                map.put("NAME", cursor.getString(index_name));
+                map.clear();
+                map.put(SONGID, String.valueOf(count));
+                map.put(SONGTIME, changeToTime(cursor.getInt(index_time)));
+                map.put(SONGPATH, cursor.getString(index_path));
+                map.put(SONGNAME, cursor.getString(index_name));
                 count++;
                 InsertSQL(SONGSTABLE, map);
             }
-            cursor.close();
+
+
+        }else if (table.equals(LISTSTABLE) && addRecord){
+            map.clear();
+            map.put(LISTID,String.valueOf(DEFAULTLISTID));
+            map.put(LISTNAME,DEFAULTLISTNAME);
+            map.put(LISTCOUNT,String.valueOf(INT_LISTCOUNT));
+            map.put(LISTINFO,DEFAULTLISTINFO);
+            map.put(LISTCLASS,DEFAULTLISTCLASS);
+            map.put(LISTTAG,DEFAULTLISTTAG);
+            InsertSQL(table,map);
         }
+        else if (table.equals(SONGLIST) && addRecord){
+            int count=0;
+            while (cursor.moveToNext()){
+                map.clear();
+                map.put(LSID,String.valueOf(count));
+                map.put(SONGID,String.valueOf(count));
+                map.put(SONGNAME,cursor.getString(index_name));
+                map.put(LISTNAME,DEFAULTLISTNAME);
+                map.put(LISTID,String.valueOf(DEFAULTLISTID));
+                InsertSQL(table, map);
+                count++;
+                INT_LISTCOUNT=count;
+            }
+        }
+        else if (addRecord) {
+            Toast.makeText(context,"Init Table not exist",Toast.LENGTH_SHORT).show();
+        }
+        cursor.close();
     }
 
     public List<Map<String,String>> QuerrySQL(String table, String object, String option) {
@@ -138,23 +199,46 @@ public class SqlExcu {
             int index_time = cursor.getColumnIndex(SONGTIME);
             int index_path = cursor.getColumnIndex(SONGPATH);
             int index_name = cursor.getColumnIndex(SONGNAME);
-            Log.e("Qurry","id:"+index_id+" time:"+index_time+" path:"+index_path+" name:"+index_name);
+
             while (cursor.moveToNext()) {
 
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("id", String.valueOf(cursor.getInt(index_id)));
-                map.put("name", cursor.getString(index_name));
-                map.put("path", cursor.getString(index_path));
-                map.put("time", cursor.getString(index_time));
+                map.put(SONGID, String.valueOf(cursor.getInt(index_id)));
+                map.put(SONGNAME, cursor.getString(index_name));
+                map.put(SONGPATH, cursor.getString(index_path));
+                map.put(SONGTIME, cursor.getString(index_time));
                 list.add(map);
             }
 
         } else if (table.equals(LISTSTABLE)) {
 
+            sql="select * from "+table;
+
+            cursor=db.rawQuery(sql,null);
+
+            int index_id=cursor.getColumnIndex(LISTID);
+            int index_name=cursor.getColumnIndex(LISTNAME);
+            int index_count=cursor.getColumnIndex(LISTCOUNT);
+            int index_info=cursor.getColumnIndex(LISTINFO);
+            int index_class=cursor.getColumnIndex(LISTCLASS);
+            int index_tag=cursor.getColumnIndex(LISTTAG);
+
+            while (cursor.moveToNext()){
+
+                Map<String,String> map=new HashMap<String, String>();
+                map.put(LISTID,String.valueOf(cursor.getInt(index_id)));
+                map.put(LISTNAME,cursor.getString(index_name));
+                map.put(LISTCOUNT,String.valueOf(cursor.getInt(index_count)));
+                map.put(LISTINFO,cursor.getString(index_info));
+                map.put(LISTCLASS,cursor.getString(index_class));
+                map.put(LISTTAG,cursor.getString(index_tag));
+                list.add(map);
+            }
+
         } else if (table.equals(SONGLIST)) {
 
         } else {
-            Toast.makeText(context, "Table no exist", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Update Table no exist", Toast.LENGTH_SHORT).show();
         }
         cursor.close();
         db.close();
@@ -162,14 +246,21 @@ public class SqlExcu {
     }
 
     private void setAddRecord (String table){
+        addRecord=true;
         db=sqlHelper.getReadableDatabase();
         sql="Select * from "+table;
         cursor=db.rawQuery(sql,null);
         while (cursor.moveToNext()){
             addRecord=false;
+            return;
         }
         cursor.close();
+        db.close();
         Log.e("HasCode","----->"+addRecord);
+    }
+
+    public void SQLForList (){
+
     }
 
     private String changeToTime (int secends){

@@ -45,8 +45,8 @@
 
                     <Button
                         android:id="@+id/updateSongs"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
                         android:layout_alignParentBottom="true"
                         android:text="@string/updateSongs" />
 
@@ -60,13 +60,14 @@
 
                     <ListView
                         android:id="@+id/listsListView"
+                        android:layout_marginBottom="64dp"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="wrap_content" />
 
                     <Button
                         android:id="@+id/managerLists"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="64dp"
                         android:layout_alignParentBottom="true"
                         android:text="@string/managerLists" />
 

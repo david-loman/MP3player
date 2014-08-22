@@ -22,6 +22,8 @@ public class SplashActivity extends Activity {
 
         SqlExcu sqlExcu =new SqlExcu(this);
         sqlExcu.initSQL(sqlExcu.SONGSTABLE,getContentResolver());
+        sqlExcu.initSQL(sqlExcu.SONGLIST,getContentResolver());
+        sqlExcu.initSQL(sqlExcu.LISTSTABLE,getContentResolver());
     }
 
     @Override
