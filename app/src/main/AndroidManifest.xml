@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.loman.david.mp3player"
     android:versionCode="1"
-    android:versionName="1.0">
+    android:versionName="1.0" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -13,24 +13,31 @@
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".SplashActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.NoTitleBar">
+            android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".MainActivity" />
-        <activity android:name=".ListManagerActivity"/>
-        <activity android:name=".SongsEditActivity"
-            android:theme="@style/myDialog"
-            android:label="歌曲列表"/>
-    </application>
+        <activity
+            android:name=".ListManagerActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".SongsEditActivity"
+            android:theme="@style/myDialog" />
+        <activity android:name=".PlayActivity" />
 
+        <service
+            android:name=".PalyerService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+    </application>
 
 </manifest>

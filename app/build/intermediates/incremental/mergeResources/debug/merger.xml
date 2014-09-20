@@ -49,8 +49,11 @@
                     <item name="android:background">
 #ffffffff
                     </item>
-                    <item name="android:label">
-歌曲列表
+                    <item name="android:windowNoTitle">
+true
+                    </item>
+                    <item name="android:windowFrame">
+@null
                     </item>
                 </style>
 
@@ -82,6 +85,10 @@
                 </string>
                 <string name="managerLists" >添加列表
                 </string>
+                <string name="action_list" >list
+                </string>
+                <string name="action_exit" >exit
+                </string>
                 <string name="list_class" >类别:
                 </string>
                 <string name="songlist" >歌曲列表
@@ -89,6 +96,8 @@
                 <string name="yes" >确定
                 </string>
                 <string name="add_songs" >添加歌曲
+                </string>
+                <string name="action_single" >single
                 </string>
                 <string name="app_name" >MP3player
                 </string>
@@ -98,9 +107,9 @@
                 </string>
                 <string name="hello_world" >Hello world!
                 </string>
-                <string name="delete_songs" >删除歌曲
-                </string>
                 <string name="list_name" >列表名:
+                </string>
+                <string name="delete_songs" >删除歌曲
                 </string>
                 <string name="updateSongs" >更新歌曲信息
                 </string>
@@ -150,6 +159,86 @@
                 path="/home/david/Me/Works/MP3player/app/src/main/res/layout/songs_list.xml"
                 qualifiers=""
                 type="layout" />
+            <file
+                name="player"
+                path="/home/david/Me/Works/MP3player/app/src/main/res/layout/player.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="play"
+                path="/home/david/Me/Works/MP3player/app/src/main/res/drawable-hdpi/play.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="pause"
+                path="/home/david/Me/Works/MP3player/app/src/main/res/drawable-xxhdpi/pause.png"
+                qualifiers="xxhdpi-v4"
+                type="drawable" />
+            <file
+                name="pause"
+                path="/home/david/Me/Works/MP3player/app/src/main/res/drawable-hdpi/pause.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="next"
+                path="/home/david/Me/Works/MP3player/app/src/main/res/drawable-hdpi/next.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="next"
+                path="/home/david/Me/Works/MP3player/app/src/main/res/drawable-mdpi/next.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="next"
+                path="/home/david/Me/Works/MP3player/app/src/main/res/drawable-xxhdpi/next.png"
+                qualifiers="xxhdpi-v4"
+                type="drawable" />
+            <file
+                name="stop"
+                path="/home/david/Me/Works/MP3player/app/src/main/res/drawable-xxhdpi/stop.png"
+                qualifiers="xxhdpi-v4"
+                type="drawable" />
+            <file
+                name="pause"
+                path="/home/david/Me/Works/MP3player/app/src/main/res/drawable-mdpi/pause.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="stop"
+                path="/home/david/Me/Works/MP3player/app/src/main/res/drawable-mdpi/stop.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="play"
+                path="/home/david/Me/Works/MP3player/app/src/main/res/drawable-xxhdpi/play.png"
+                qualifiers="xxhdpi-v4"
+                type="drawable" />
+            <file
+                name="play"
+                path="/home/david/Me/Works/MP3player/app/src/main/res/drawable-mdpi/play.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="paste"
+                path="/home/david/Me/Works/MP3player/app/src/main/res/drawable-hdpi/paste.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="paste"
+                path="/home/david/Me/Works/MP3player/app/src/main/res/drawable-mdpi/paste.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="stop"
+                path="/home/david/Me/Works/MP3player/app/src/main/res/drawable-hdpi/stop.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="paste"
+                path="/home/david/Me/Works/MP3player/app/src/main/res/drawable-xxhdpi/paste.png"
+                qualifiers="xxhdpi-v4"
+                type="drawable" />
         </source>
         <source path="/home/david/Me/Works/MP3player/app/build/generated/res/rs/debug" />
         <source path="/home/david/Me/Works/MP3player/app/build/generated/res/generated/debug" />

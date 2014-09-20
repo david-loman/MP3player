@@ -17,7 +17,7 @@ public class SQLHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table songs (sId integer primary key , sName varchar(50), sPath varchar(50), sDuration varchar(10) )");
         db.execSQL("create table lists (lId integer primary key ,lName varchar(10), lCount integer,lInfo varchar(140),lClass varchar(20), lTag varchar(50))");
-        db.execSQL("create table songLists(lsId Integer primary key,sId integer,sName varchar(20),lId integer,lName varchar (10))");
+        db.execSQL("create table songLists(lsId Integer primary key,sId integer,sName varchar(50),sPath varchar(50), sDuration varchar(10),lId integer,lName varchar (10),lInfo varchar(140),lClass varchar(20), lTag varchar(50))");
     }
 
     @Override

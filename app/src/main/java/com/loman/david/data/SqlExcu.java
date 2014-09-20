@@ -8,16 +8,10 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.loman.david.tools.Song;
-import com.loman.david.tools.Tools;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.security.auth.login.LoginException;
 
 /**
  * Created by root on 14-8-21.
@@ -112,11 +106,16 @@ public class SqlExcu {
             String id=map.get(LSID);
             String sid=map.get(SONGID);
             String sname=map.get(SONGNAME);
+            String stime = map.get(SONGTIME);
+            String spath = map.get(SONGPATH);
             String lid=map.get(LISTID);
             String lname=map.get(LISTNAME);
+            String lclass=map.get(LISTCLASS);
+            String linfo=map.get(LISTINFO);
+            String ltag=map.get(LISTTAG);
 
-            sql="insert into "+table+" values(?,?,?,?,?)";
-            db.execSQL(sql,new String []{id,sid,sname,lid,lname});
+            sql="insert into "+table+" values(?,?,?,?,?,?,?,?,?,?)";
+            db.execSQL(sql,new String []{id,sid,sname,spath,stime,lid,lname,linfo,lclass,ltag});
         } else {
             Toast.makeText(context, "Insert Table no exist", Toast.LENGTH_SHORT).show();
         }
@@ -168,11 +167,16 @@ public class SqlExcu {
             int count=0;
             while (cursor.moveToNext()){
                 map.clear();
-                map.put(LSID,String.valueOf(count));
+                map.put(LSID, String.valueOf(count));
                 map.put(SONGID,String.valueOf(count));
                 map.put(SONGNAME,cursor.getString(index_name));
+                map.put(SONGPATH,cursor.getString(index_path));
+                map.put(SONGTIME, changeToTime(cursor.getInt(index_time)));
                 map.put(LISTNAME,DEFAULTLISTNAME);
                 map.put(LISTID,String.valueOf(DEFAULTLISTID));
+                map.put(LISTINFO,DEFAULTLISTINFO);
+                map.put(LISTCLASS,DEFAULTLISTCLASS);
+                map.put(LISTTAG,DEFAULTLISTTAG);
                 InsertSQL(table, map);
                 count++;
                 INT_LISTCOUNT=count;
@@ -237,6 +241,38 @@ public class SqlExcu {
 
         } else if (table.equals(SONGLIST)) {
 
+            if (object != null){
+                sql="select * from "+SONGLIST+" where "+object+" = "+option;
+
+                cursor=db.rawQuery(sql,null);
+            }
+
+            int index_sid = cursor.getColumnIndex(SONGID);
+            int index_stime = cursor.getColumnIndex(SONGTIME);
+            int index_spath = cursor.getColumnIndex(SONGPATH);
+            int index_sname = cursor.getColumnIndex(SONGNAME);
+            int index_lid=cursor.getColumnIndex(LISTID);
+            int index_lname=cursor.getColumnIndex(LISTNAME);
+            int index_linfo=cursor.getColumnIndex(LISTINFO);
+            int index_lclass=cursor.getColumnIndex(LISTCLASS);
+            int index_ltag=cursor.getColumnIndex(LISTTAG);
+
+            while (cursor.moveToNext()){
+
+                Map<String,String> map=new HashMap<String, String>();
+                map.put(SONGID, String.valueOf(cursor.getInt(index_sid)));
+                map.put(SONGNAME, cursor.getString(index_sname));
+                map.put(SONGPATH, cursor.getString(index_spath));
+                map.put(SONGTIME, cursor.getString(index_stime));
+                map.put(LISTID,String.valueOf(cursor.getInt(index_lid)));
+                map.put(LISTNAME,cursor.getString(index_lname));
+                map.put(LISTINFO,cursor.getString(index_linfo));
+                map.put(LISTCLASS,cursor.getString(index_lclass));
+                map.put(LISTTAG,cursor.getString(index_ltag));
+                list.add(map);
+//                Log.e("SongLists","yes songname:"+cursor.getString(index_sname)+" time :"+cursor.getString(index_stime));
+            }
+
         } else {
             Toast.makeText(context, "Update Table no exist", Toast.LENGTH_SHORT).show();
         }
@@ -263,6 +299,7 @@ public class SqlExcu {
 
     }
 
+
     private String changeToTime (int secends){
         String time = null;
         int h, m, s;
@@ -275,14 +312,27 @@ public class SqlExcu {
             m = secends / (1000 * 60);
             secends = secends % (1000 * 60);
         }
-        if (secends > 1000) {
+        if (secends >= 1000) {
             s = secends / 1000;
         }
         if (h == 0) {
-            time = m + ":" + s;
+            time = m + ":" + getNumber(s);
         } else {
-            time = h + ":" + m + ":" + s;
+            time = h + ":" + getNumber(m) + ":" + getNumber(s);
         }
         return time;
+
+    }
+
+    private String getNumber (int number){
+        StringBuffer result=new StringBuffer();
+        if (number<10){
+            result.append("0");
+            result.append(number);
+        }
+        else{
+            result.append(number);
+        }
+        return result.toString();
     }
 }

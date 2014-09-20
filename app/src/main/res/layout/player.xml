@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="3dp">
+
+    <TextView
+        android:id="@+id/songNameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        />
+
+    <ListView
+        android:id="@+id/songListView"
+        android:layout_below="@+id/songNameTextView"
+        android:layout_above="@+id/showTimeTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/showTimeTextView"
+        android:layout_above="@+id/playButton"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_horizontal"
+        android:textSize="25sp"/>
+
+    <ImageButton
+        android:id="@+id/playButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/transparent"
+        android:src="@drawable/play"/>
+
+    <ImageButton
+        android:id="@+id/pasteSongButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/playButton"
+        android:background="@android:color/transparent"
+        android:src="@drawable/paste"
+        android:layout_marginEnd="60dp"/>
+
+    <ImageButton
+        android:id="@+id/nextSongButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/playButton"
+        android:background="@android:color/transparent"
+        android:src="@drawable/next"
+        />
+</RelativeLayout>

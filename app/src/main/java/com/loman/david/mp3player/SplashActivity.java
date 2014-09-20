@@ -13,17 +13,27 @@ import com.loman.david.data.SqlExcu;
 
 public class SplashActivity extends Activity {
 
-    private final int SPLASH_DISPLAY_LENGHT=3000;
+    private final int SPLASH_DISPLAY_LENGHT=1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        SqlExcu sqlExcu =new SqlExcu(this);
-        sqlExcu.initSQL(sqlExcu.SONGSTABLE,getContentResolver());
-        sqlExcu.initSQL(sqlExcu.SONGLIST,getContentResolver());
-        sqlExcu.initSQL(sqlExcu.LISTSTABLE,getContentResolver());
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                SqlExcu sqlExcu =new SqlExcu(SplashActivity.this);
+                sqlExcu.initSQL(sqlExcu.SONGSTABLE,getContentResolver());
+                sqlExcu.initSQL(sqlExcu.SONGLIST,getContentResolver());
+                sqlExcu.initSQL(sqlExcu.LISTSTABLE,getContentResolver());
+
+                Intent mainIntent =new Intent(SplashActivity.this,MainActivity.class);
+                startActivity(mainIntent);
+                SplashActivity.this.finish();
+            }
+        },SPLASH_DISPLAY_LENGHT);
     }
 
     @Override
@@ -35,32 +45,5 @@ public class SplashActivity extends Activity {
     protected void onResume() {
         super.onResume();
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent mainIntent =new Intent(SplashActivity.this,MainActivity.class);
-                startActivity(mainIntent);
-                SplashActivity.this.finish();
-            }
-        },SPLASH_DISPLAY_LENGHT);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.splash, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

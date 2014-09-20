@@ -105,8 +105,11 @@ public class MainActivity extends Activity {
         songList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Toast.makeText(MainActivity.this,"positon:"+position+" id:"+id,Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(MainActivity.this,PlayActivity.class);
+                intent.putExtra("LID",0);
+                intent.putExtra("SID",position);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -124,16 +127,16 @@ public class MainActivity extends Activity {
             }
         });
 
-        listList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Intent intent=new Intent(MainActivity.this,ListManagerActivity.class);
-                intent.putExtra("id",position);
-                startActivity(intent);
-
-            }
-        });
+//        listList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                Intent intent=new Intent(MainActivity.this,ListManagerActivity.class);
+//                intent.putExtra("id",position);
+//                startActivity(intent);
+//
+//            }
+//        });
 
     }
 

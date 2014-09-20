@@ -16,10 +16,17 @@ public final class R {
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
-        public static final int splash=0x7f020001;
+        public static final int next=0x7f020001;
+        public static final int paste=0x7f020002;
+        public static final int pause=0x7f020003;
+        public static final int play=0x7f020004;
+        public static final int splash=0x7f020005;
+        public static final int stop=0x7f020006;
     }
     public static final class id {
-        public static final int action_settings=0x7f080020;
+        public static final int action_exit=0x7f080029;
+        public static final int action_list=0x7f080028;
+        public static final int action_single=0x7f080027;
         public static final int addSongs=0x7f080014;
         public static final int classEditText=0x7f08000a;
         public static final int classTextView=0x7f080009;
@@ -38,9 +45,16 @@ public final class R {
         public static final int managerLists=0x7f08001c;
         public static final int nameEditText=0x7f080007;
         public static final int nameTextView=0x7f080006;
-        public static final int sListView=0x7f08001e;
+        public static final int nextSongButton=0x7f080022;
+        public static final int pasteSongButton=0x7f080021;
+        public static final int playButton=0x7f080020;
+        public static final int rin=0x7f080023;
+        public static final int sListView=0x7f080025;
+        public static final int showTimeTextView=0x7f08001f;
         public static final int songInfoLayout=0x7f080011;
         public static final int songInfoListView=0x7f080013;
+        public static final int songListView=0x7f08001e;
+        public static final int songNameTextView=0x7f08001d;
         public static final int songs=0x7f080017;
         public static final int songsListView=0x7f080018;
         public static final int songsTextView=0x7f080012;
@@ -48,39 +62,43 @@ public final class R {
         public static final int tableRow1=0x7f080001;
         public static final int tagEditText=0x7f08000c;
         public static final int tagTextView=0x7f08000b;
-        public static final int time=0x7f08001d;
+        public static final int time=0x7f080024;
         public static final int title=0x7f080002;
         public static final int updateSongs=0x7f080019;
-        public static final int yes=0x7f08001f;
+        public static final int yes=0x7f080026;
     }
     public static final class layout {
         public static final int activity_splash=0x7f030000;
         public static final int dialog_layout=0x7f030001;
         public static final int list_information=0x7f030002;
         public static final int main=0x7f030003;
-        public static final int songlist_item=0x7f030004;
-        public static final int songs_list=0x7f030005;
+        public static final int player=0x7f030004;
+        public static final int songlist_item=0x7f030005;
+        public static final int songs_list=0x7f030006;
     }
     public static final class menu {
         public static final int splash=0x7f070000;
     }
     public static final class string {
-        public static final int action_settings=0x7f050000;
-        public static final int add_songs=0x7f050001;
-        public static final int app_name=0x7f050002;
-        public static final int delete_list=0x7f050003;
-        public static final int delete_songs=0x7f050004;
-        public static final int edit_list=0x7f050005;
-        public static final int hello_world=0x7f050006;
-        public static final int list_class=0x7f050007;
-        public static final int list_info=0x7f050008;
-        public static final int list_info_detail=0x7f050009;
-        public static final int list_name=0x7f05000a;
-        public static final int list_tag=0x7f05000b;
-        public static final int managerLists=0x7f05000c;
-        public static final int songlist=0x7f05000d;
-        public static final int updateSongs=0x7f05000e;
-        public static final int yes=0x7f05000f;
+        public static final int action_exit=0x7f050000;
+        public static final int action_list=0x7f050001;
+        public static final int action_settings=0x7f050002;
+        public static final int action_single=0x7f050003;
+        public static final int add_songs=0x7f050004;
+        public static final int app_name=0x7f050005;
+        public static final int delete_list=0x7f050006;
+        public static final int delete_songs=0x7f050007;
+        public static final int edit_list=0x7f050008;
+        public static final int hello_world=0x7f050009;
+        public static final int list_class=0x7f05000a;
+        public static final int list_info=0x7f05000b;
+        public static final int list_info_detail=0x7f05000c;
+        public static final int list_name=0x7f05000d;
+        public static final int list_tag=0x7f05000e;
+        public static final int managerLists=0x7f05000f;
+        public static final int songlist=0x7f050010;
+        public static final int updateSongs=0x7f050011;
+        public static final int yes=0x7f050012;
     }
     public static final class style {
         /**  Customize your theme here. 
